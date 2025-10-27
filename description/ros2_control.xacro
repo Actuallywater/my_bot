@@ -3,7 +3,7 @@
 
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
-            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            <plugin>ros_gz_sim/DefaultSystem</plugin>
         </hardware>
         <joint name="left_wheel_joint">
             <command_interface name="velocity">
@@ -25,12 +25,12 @@
 
 
     <gazebo>
-        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+        <plugin name="ros_gz_sim::DefaultSystem" filename="libros_gz_sim_ros2_control-system.so">
             <parameters>$(find my_bot)/config/my_controllers.yaml</parameters>
             <parameters>$(find my_bot)/config/gaz_ros2_ctl_use_sim.yaml</parameters>
         </plugin>
 
-        <plugin
+        <!--plugin
             filename="gz-sim-sensors-system"
             name="gz::sim::systems::Sensors">
             <render_engine>ogre2</render_engine>
@@ -50,7 +50,7 @@
         <plugin
             filename="gz-sim-scene-broadcaster-system"
             name="gz::sim::systems::SceneBroadcaster">
-        </plugin>
+        </plugin-->
     </gazebo>
 
 </robot>
