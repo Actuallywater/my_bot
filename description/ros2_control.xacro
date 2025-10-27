@@ -1,9 +1,30 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!--github link-->
+    <!--ros2_control name="GazeboSimSystem" type="system"-->
+    
+    <!--ArtuclatedRobotics-->
+    <!--ros2_control name="GazeboSystem" type="system"-->
+
+    <!--ChatGipitty-->
+    <!--ros2_control name="GazeboSystem" type="system"-->
 
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
-            <plugin>ros_gz_sim/DefaultSystem</plugin>
+            <!--https://github.com/ros-controls/gz_ros2_control/blob/rolling/gz_ros2_control_demos/urdf/test_diff_drive.xacro.urdf#L149-L179-->
+            <!--plugin>gz_ros2_control/GazeboSimSystem</plugin-->
+            
+            <!--ArtuclatedRobotics-->
+            <!--plugin>gz_ros2_control/DefaultSystem</plugin-->
+            
+            <!--ChatGipitty-->
+            <!--plugin>ros_gz_sim/DefaultSystem</plugin-->
+
+            <!--CHatchippity-->
+            <!--plugin name="ign_ros2_control::IgnitionROS2ControlPlugin" filename="libign_ros2_control-system.so"/-->
+
+
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>
         <joint name="left_wheel_joint">
             <command_interface name="velocity">
@@ -25,7 +46,21 @@
 
 
     <gazebo>
-        <plugin name="ros_gz_sim::DefaultSystem" filename="libros_gz_sim_ros2_control-system.so">
+        <!--https://github.com/ros-controls/gz_ros2_control/blob/rolling/gz_ros2_control_demos/urdf/test_diff_drive.xacro.urdf#L149-L179-->
+        <!--plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"-->
+        
+        <!--ArtuclatedRobotics-->
+        <!--plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so"-->
+
+        <!--ChatGipitty-->
+        <!--plugin name="ros_gz_sim::DefaultSystem" filename="libros_gz_sim_ros2_control-system.so"-->
+        
+        <!--ChatGipitty but launches without error-->
+        <!--plugin name="ign_ros2_control::IgnitionROS2ControlPlugin" filename="libros_gz_sim_ros2_control-system.so"-->
+
+        <!--plugin name="ros2_control" filename="libign_ros2_control-system.so"-->
+
+        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
             <parameters>$(find my_bot)/config/my_controllers.yaml</parameters>
             <parameters>$(find my_bot)/config/gaz_ros2_ctl_use_sim.yaml</parameters>
         </plugin>

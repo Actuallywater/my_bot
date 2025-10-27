@@ -7,9 +7,9 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-
+from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
-
+from launch.actions import RegisterEventHandler
 
 
 def generate_launch_description():
@@ -69,7 +69,7 @@ def generate_launch_description():
                                    '-z', '0.1'],
                         output='screen')
 
-
+    '''
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -81,6 +81,43 @@ def generate_launch_description():
         executable="spawner",
         arguments=["joint_broad"],
     )
+
+    delayed_diff_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=spawn_entity,
+            on_exit=[diff_drive_spawner],
+        )
+    )
+
+    delayed_joint_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=diff_drive_spawner,
+            on_exit=[joint_broad_spawner],
+        )
+    )
+    '''
+    diff_drive_spawner = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=[
+        "diff_cont",
+        "--controller-manager", "/controller_manager",
+        "--timeout", "30"  # wait up to 30 seconds
+    ],
+    output="screen"
+    )
+
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "joint_broad",
+            "--controller-manager", "/controller_manager",
+            "--timeout", "30"
+        ],
+        output="screen"
+    )
+
 
 
     bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
@@ -128,8 +165,8 @@ def generate_launch_description():
         world_arg,
         gazebo,
         spawn_entity,
-        diff_drive_spawner,
-        joint_broad_spawner,
+        #diff_drive_spawner,
+        #joint_broad_spawner,
         ros_gz_bridge,
         ros_gz_image_bridge
     ])
