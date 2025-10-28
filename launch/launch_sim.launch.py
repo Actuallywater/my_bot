@@ -96,6 +96,7 @@ def generate_launch_description():
         )
     )
     '''
+    '''
     diff_drive_spawner = Node(
     package="controller_manager",
     executable="spawner",
@@ -118,6 +119,24 @@ def generate_launch_description():
         output="screen"
     )
 
+    '''
+
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "diff_cont",
+            '--controller-ros-args',
+            '-r /diff_cont/cmd_vel:=/cmd_vel'
+        ],
+    )
+
+
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
 
 
     bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
@@ -165,8 +184,8 @@ def generate_launch_description():
         world_arg,
         gazebo,
         spawn_entity,
-        #diff_drive_spawner,
-        #joint_broad_spawner,
+        diff_drive_spawner,
+        joint_broad_spawner,
         ros_gz_bridge,
         ros_gz_image_bridge
     ])
