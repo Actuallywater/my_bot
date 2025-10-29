@@ -34,8 +34,8 @@ def generate_launch_description():
             #remappings=[('/cmd_vel_in','/diff_cont/cmd_vel_unstamped'),
             #            ('/cmd_vel_out','/diff_cont/cmd_vel')]
             remappings=[('/cmd_vel_in','/cmd_vel_joy'),
-                        #('/cmd_vel_out','/cmd_vel')]
-                        ('/cmd_vel_out','/diff_cont/cmd_vel')]
+                        ('/cmd_vel_out','/cmd_vel')]
+                        #('/cmd_vel_out','/diff_cont/cmd_vel')]
          )
 
 
