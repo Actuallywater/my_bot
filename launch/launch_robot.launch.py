@@ -98,7 +98,23 @@ def generate_launch_description():
     #
     # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
 
-
+    lidar = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(
+                get_package_share_directory(package_name),
+                'launch',
+                'lidar.launch.py'
+            )
+        ]),
+        launch_arguments={
+            'channel_type': 'serial',
+            'serial_port': '/dev/ttyUSB1',
+            'serial_baudrate': '115200',
+            'frame_id': 'laser_frame',
+            'inverted': 'false',
+            'angle_compensate': 'true'
+        }.items()
+    )
 
     # Launch them all!
     return LaunchDescription([
@@ -107,5 +123,6 @@ def generate_launch_description():
         #twist_mux,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner
+        delayed_joint_broad_spawner,
+        lidar
     ])
