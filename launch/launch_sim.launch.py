@@ -69,57 +69,6 @@ def generate_launch_description():
                                    '-z', '0.1'],
                         output='screen')
 
-    '''
-    diff_drive_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_cont"],
-    )
-
-    joint_broad_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_broad"],
-    )
-
-    delayed_diff_spawner = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=spawn_entity,
-            on_exit=[diff_drive_spawner],
-        )
-    )
-
-    delayed_joint_spawner = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=diff_drive_spawner,
-            on_exit=[joint_broad_spawner],
-        )
-    )
-    '''
-    '''
-    diff_drive_spawner = Node(
-    package="controller_manager",
-    executable="spawner",
-    arguments=[
-        "diff_cont",
-        "--controller-manager", "/controller_manager",
-        "--timeout", "30"  # wait up to 30 seconds
-    ],
-    output="screen"
-    )
-
-    joint_broad_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[
-            "joint_broad",
-            "--controller-manager", "/controller_manager",
-            "--timeout", "30"
-        ],
-        output="screen"
-    )
-
-    '''
 
     diff_drive_spawner = Node(
         package="controller_manager",
