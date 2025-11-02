@@ -108,7 +108,7 @@ def generate_launch_description():
         ]),
         launch_arguments={
             'channel_type': 'serial',
-            'serial_port': '/dev/ttyUSB0',
+            'serial_port': '/dev/ttyUSB1',
             'serial_baudrate': '115200',
             'frame_id': 'laser_frame',
             'inverted': 'false',
